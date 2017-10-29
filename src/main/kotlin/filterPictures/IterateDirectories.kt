@@ -10,13 +10,18 @@ fun main(args: Array<String>) {
 
     // using extension function walk
     val extractMetaData = ExtractMetaData();
-    File("C:\\Users\\edlei\\Pictures\\Streetphotography\\2017-09-30").walk().forEach {
-        println(it)
-        println("isFile: " + it.isFile)
+    val myFile1 = "C:\\Users\\edlei\\Pictures\\In Lightroom CC gespeicherte Fotos\\Luzerner Marathon 2017 JPEG"
+    val myFile2 = "C:\\Users\\edlei\\Pictures\\In Lightroom CC gespeicherte Fotos\\Luzerner Marathon 2017"
+    val myFile3 = "C:\\Users\\edlei\\Pictures\\Streetphotography\\2017-09-30"
+    File(myFile2).walk().forEach {
         if (it.isFile) {
-            println("isFile")
-            val myMetadata = extractMetaData.getMetaData(it)
-            println(myMetadata)
+            val fileName = it.absoluteFile.name
+            if ((fileName.endsWith(".CR2")) || (fileName.endsWith(".jpg"))){
+                println(it)
+                val myMetadata = extractMetaData.getMetaData(it)
+                println(myMetadata)
+            }
+
         }
     }
 }

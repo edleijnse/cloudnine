@@ -13,7 +13,9 @@ fun main(args: Array<String>) {
     val myFile1 = "C:\\Users\\edlei\\Pictures\\In Lightroom CC gespeicherte Fotos\\Luzerner Marathon 2017 JPEG"
     val myFile2 = "C:\\Users\\edlei\\Pictures\\In Lightroom CC gespeicherte Fotos\\Luzerner Marathon 2017"
     val myFile3 = "C:\\Users\\edlei\\Pictures\\Streetphotography\\2017-09-30"
-    File(myFile2).walk().forEach {
+    val myFile4 = "C:\\Users\\edlei\\Pictures\\export\\landscapes"
+
+    File(myFile4).walk().forEach {
         if (it.isFile) {
             val fileName = it.absoluteFile.name
             if ((fileName.endsWith(".CR2")) || (fileName.endsWith(".jpg"))){

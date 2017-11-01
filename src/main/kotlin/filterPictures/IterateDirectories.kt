@@ -9,21 +9,15 @@ import java.io.File
 fun main(args: Array<String>) {
 
     // using extension function walk
-    val extractMetaData = ExtractMetaData();
+    val extractPictureMetaData = ExtractPictureMetaData();
     val myFile1 = "C:\\Users\\edlei\\Pictures\\In Lightroom CC gespeicherte Fotos\\Luzerner Marathon 2017 JPEG"
     val myFile2 = "C:\\Users\\edlei\\Pictures\\In Lightroom CC gespeicherte Fotos\\Luzerner Marathon 2017"
     val myFile3 = "C:\\Users\\edlei\\Pictures\\Streetphotography\\2017-09-30"
-    val myFile4 = "C:\\Users\\edlei\\Pictures\\export\\landscapes"
+    val myFile4 = "C:\\Users\\edlei\\Pictures\\export"
+    val myFile5 = "Z:\\Lightroom"
+    val myFile6 = "C:\\Users\\edlei\\OneDrive\\Dokumente"
 
-    File(myFile4).walk().forEach {
-        if (it.isFile) {
-            val fileName = it.absoluteFile.name
-            if ((fileName.endsWith(".CR2")) || (fileName.endsWith(".jpg"))){
-                println(it)
-                val myMetadata = extractMetaData.getMetaData(it)
-                println(myMetadata)
-            }
+    val fileCount = extractPictureMetaData.readFiles(myFile4)
+    println ("selected files: " + fileCount)
 
-        }
-    }
 }

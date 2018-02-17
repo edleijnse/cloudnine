@@ -11,23 +11,20 @@ class ExtractPictureMetaData {
     internal fun getMetaData(file: File): String {
         // https://drewnoakes.com/code/exif/
         var myMetadata = ""
-        var metadata: Metadata? = null
+        var metadata: Metadata?
         try {
             metadata = ImageMetadataReader.readMetadata(file)
 
             var delimitor = ""
             if (metadata != null) {
-                for (directory in metadata.directories) {
-                    for (tag in directory.tags) {
+                metadata.directories.forEach { directory ->
+                    directory.tags.forEach { tag ->
                         myMetadata += delimitor + tag.tagName + "=" + tag.description
                         delimitor = ","
                     }
                     if (directory.hasErrors()) {
-                        for (error in directory.errors) {
-                            System.err.format("ERROR: %s", error)
-                        }
+                        directory.errors.forEach { error -> System.err.format("ERROR: %s", error) }
                     }
-
                 }
             }
 

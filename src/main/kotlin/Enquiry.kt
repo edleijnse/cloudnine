@@ -12,7 +12,7 @@ import java.util.ResourceBundle
 class Enquiry {
 
     @Throws(IOException::class)
-    fun getEnquiryFragment(iFragment: String): String {
+    fun getEnquiryFragment(iFragment: String): String? {
         var myHeader: String?
         myHeader = ""
         val `in` = this.javaClass.classLoader.getResourceAsStream(iFragment)
@@ -52,19 +52,19 @@ class Enquiry {
 
 
         val myEnquiryPrepare = enquiry.getEnquiryFragment("enquiry_01_prolog.html")
-        var myEnquiry = myEnquiryPrepare.replace("#labelQuestionary", labelQuestionary!!)
+        var myEnquiry = myEnquiryPrepare!!.replace("#labelQuestionary", labelQuestionary!!)
 
         val myEnquiryQuestion01Prolog01 = enquiry.getEnquiryFragment("enquiryquestion_01_prolog.html")
-        val myEnquiryQuestion01Prolog02 = myEnquiryQuestion01Prolog01.replace("#labelQuestionId", labelQuestionId!!)
-        val myEnquiryQuestion01Prolog03 = myEnquiryQuestion01Prolog02.replace("#labelQuestion", labelQuestion!!)
-        val myEnquiryQuestion01Prolog04 = myEnquiryQuestion01Prolog03.replace("#labelAnswerId", labelAnswerId!!)
-        val myEnquiryQuestion01Prolog05 = myEnquiryQuestion01Prolog04.replace("#labelAnswer", labelAnswer!!)
+        val myEnquiryQuestion01Prolog02 = myEnquiryQuestion01Prolog01?.replace("#labelQuestionId", labelQuestionId!!)
+        val myEnquiryQuestion01Prolog03 = myEnquiryQuestion01Prolog02?.replace("#labelQuestion", labelQuestion!!)
+        val myEnquiryQuestion01Prolog04 = myEnquiryQuestion01Prolog03?.replace("#labelAnswerId", labelAnswerId!!)
+        val myEnquiryQuestion01Prolog05 = myEnquiryQuestion01Prolog04?.replace("#labelAnswer", labelAnswer!!)
         myEnquiry += myEnquiryQuestion01Prolog05
 
         val myQuestion1 = enquiry.getEnquiryFragment("enquiryquestion_02_body.html")
-        val myNewstring1_1 = myQuestion1.replace("#questionId".toRegex(), "1")
-        val myNewstring1_2 = myNewstring1_1.replace("#questionDescription".toRegex(), "Wieviele Zigaretten rauchen Sie?")
-        val myNewstring1_3 = myNewstring1_2.replace("#answerId".toRegex(), "Anzahl:")
+        val myNewstring1_1 = myQuestion1?.replace("#questionId".toRegex(), "1")
+        val myNewstring1_2 = myNewstring1_1?.replace("#questionDescription".toRegex(), "Wieviele Zigaretten rauchen Sie?")
+        val myNewstring1_3 = myNewstring1_2?.replace("#answerId".toRegex(), "Anzahl:")
 
         myEnquiry += myNewstring1_3
 
@@ -75,8 +75,8 @@ class Enquiry {
         myEnquiry += myQuestion3
         for (i in 0..99) {
             val myQuestion4 = enquiry.getEnquiryFragment("enquiryquestion_02_body.html")
-            val myNewstring = myQuestion4.replace("#questionId".toRegex(), Integer.toString(i + 4))
-            val myNewstring2 = myNewstring.replace("#questionDescription".toRegex(), "Frage " + Integer.toString(i + 4))
+            val myNewstring = myQuestion4?.replace("#questionId".toRegex(), Integer.toString(i + 4))
+            val myNewstring2 = myNewstring?.replace("#questionDescription".toRegex(), "Frage " + Integer.toString(i + 4))
             myEnquiry += myNewstring2
         }
 

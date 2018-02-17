@@ -15,13 +15,15 @@ fun main(args: Array<String>) {
     val myFile4 = "C:\\Users\\edlei\\Pictures\\export"
     val myFile5 = "Z:\\Lightroom"
     val myFile6 = "C:\\Users\\edlei\\OneDrive\\Dokumente"
+    val myFile7 = "C:\\Users\\edlei\\Documents\\ExportTest"
+
 
     // alternativ 1 instantiate class
     val extractPictureMetaData = ExtractPictureMetaData();
-    val fileCount = extractPictureMetaData.readFiles(myFile4)
+    // val fileCount = extractPictureMetaData.readFiles(myFile7)
 
     // alternativ 2 direct use without primary instantiation
-    val fileCount2 = ExtractPictureMetaData().readFiles(myFile4)
-    println ("selected files: " + fileCount)
+    val fileCount2 = ExtractPictureMetaData().readFiles(myFile7)
+    println ("selected files: " + fileCount2)
 
 }

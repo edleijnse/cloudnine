@@ -8,6 +8,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import java.io.File
+
+
 
 
 // https://blog.philipphauer.de/best-practices-unit-testing-kotlin/
@@ -18,7 +21,11 @@ class ExtractPictureMetaDataTest : TestCase(){
     @Test
     fun testgetMetaData() {
         //
-        val myFile7 = "C:\\Users\\edlei\\Documents\\ExportTest"
+        // val myFile7 = "C:\\Users\\edlei\\Documents\\ExportTest"
+
+        val resourcesDirectory = File("src/main/resources")
+        val myFile7 = resourcesDirectory.absolutePath + "/ExportTest"
+        System.out.println(myFile7)
         val e = ExtractPictureMetaData()
         assertEquals(36, e.readFiles(myFile7))
         System.out.println("test")

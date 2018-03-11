@@ -3,10 +3,6 @@ package filterPictures
 //import junit.framework.TestCase
 import junit.framework.TestCase
 import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.io.File
 
@@ -19,7 +15,7 @@ import java.io.File
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class ExtractPictureMetaDataTest : TestCase(){
     @Test
-    fun testgetMetaData() {
+    fun testReadData() {
         //
         // val myFile7 = "C:\\Users\\edlei\\Documents\\ExportTest"
 
@@ -29,5 +25,24 @@ class ExtractPictureMetaDataTest : TestCase(){
         val e = ExtractPictureMetaData()
         assertEquals(36, e.readFiles(myFile7))
         System.out.println("test")
+    }
+
+    @Test
+    fun testGetMetaDataIntoString(){
+        val myFile = File("src/main/resources/ExportTest/famromano-100.jpg")
+        val e = ExtractPictureMetaData()
+        val output = e.getMetaDataIntoString(myFile)
+        assertTrue(output.length>10)
+        System.out.println("output: " + output)
+    }
+
+    @Test
+    fun testGetMetaDataInto(){
+        val myFile = File("src/main/resources/ExportTest/famromano-100.jpg")
+        val e = ExtractPictureMetaData()
+        val output = e.getPictureMetaData(myFile)
+        assertEquals("Canon EOS 6D",output.model)
+        assertEquals("Canon",output.make)
+        assertEquals("2017:11:12 10:15:55",output.dateTime)
     }
 }

@@ -41,7 +41,6 @@ class ExtractPictureMetaData {
 
     internal fun getPictureMetaData(file: File): PictureMetaData {
         // https://drewnoakes.com/code/exif/
-        var myMetadata = ""
         var myPictureMetaData: PictureMetaData = PictureMetaData()
 
         myPictureMetaData.make = "SAMPLE Canon XX"
@@ -51,24 +50,37 @@ class ExtractPictureMetaData {
         var metadata: Metadata?
         try {
             metadata = ImageMetadataReader.readMetadata(file)
+            myPictureMetaData.pictureName = file.name
+            myPictureMetaData.absolutePath = file.absolutePath
+            myPictureMetaData.canonicalPath = file.canonicalPath
 
-            var delimitor = ""
             if (metadata != null) {
                 metadata.directories.forEach { directory ->
-                    directory.tags.forEach { tag ->
-                        myMetadata += delimitor + tag.tagName + "=" + tag.description
-                        if (tag.tagName=="Make"){
-                            myPictureMetaData.make=tag.description
+                    directory.tags.forEach({ it ->
+                        if (it.tagName == "Make") {
+                            myPictureMetaData.make = it.description
+                        } else if (it.tagName == "Model") {
+                            myPictureMetaData.model = it.description
+                        } else if (it.tagName == "Lens Model") {
+                            myPictureMetaData.lenseModel == it.description
+                        } else if (it.tagName == "Date/Time") {
+                            myPictureMetaData.dateTime = it.description
+                        } else if (it.tagName == "Image Height") {
+                            myPictureMetaData.height = it.description.replace("pixels", "").trim().toInt()
+                        } else if (it.tagName == "Image Width") {
+                            myPictureMetaData.width = it.description.replace("pixels", "").trim().toInt()
+                        } else if (it.tagName == "ISO Speed Ratings"){
+                            myPictureMetaData.iso = it.description.trim().toInt()
+                        } else if (it.tagName == "Shutter Speed Value"){
+                            myPictureMetaData.exposure = it.description
+                        } else if (it.tagName == "Aperture Value"){
+                            myPictureMetaData.aperture = it.description
+                        } else if (it.tagName == "Exposure Bias Value"){
+                            myPictureMetaData.exposureBias = it.description
+                        } else if (it.tagName == "Focal Length"){
+                            myPictureMetaData.focalLength = it.description
                         }
-                        else if (tag.tagName=="Model"){
-                            myPictureMetaData.model=tag.description
-                        }
-                        else if (tag.tagName=="Date/Time"){
-                            myPictureMetaData.dateTime=tag.description
-                        }
-
-                        delimitor = ","
-                    }
+                    })
                     if (directory.hasErrors()) {
                         directory.errors.forEach { error -> System.err.format("ERROR: %s", error) }
                     }

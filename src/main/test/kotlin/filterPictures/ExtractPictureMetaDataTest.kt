@@ -1,6 +1,7 @@
 package filterPictures
 
 //import junit.framework.TestCase
+import com.thoughtworks.xstream.XStream
 import junit.framework.TestCase
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.Test;
@@ -41,6 +42,9 @@ class ExtractPictureMetaDataTest : TestCase(){
         val myFile = File("src/main/resources/ExportTest/famromano-100.jpg")
         val e = ExtractPictureMetaData()
         val output = e.getPictureMetaData(myFile)
+        var xStream = XStream()
+        System.out.println(xStream.toXML(output))
+
         assertEquals("Canon EOS 6D",output.model)
         assertEquals("Canon",output.make)
         assertEquals("2017:11:12 10:15:55",output.dateTime)

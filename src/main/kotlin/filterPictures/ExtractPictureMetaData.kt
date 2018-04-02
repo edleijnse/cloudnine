@@ -4,6 +4,7 @@ import com.drew.imaging.ImageMetadataReader
 import com.drew.imaging.ImageProcessingException
 import com.drew.metadata.Metadata
 import java.io.File
+import java.io.FileWriter
 import java.io.IOException
 
 class ExtractPictureMetaData {
@@ -62,7 +63,9 @@ class ExtractPictureMetaData {
                         } else if (it.tagName == "Model") {
                             myPictureMetaData.model = it.description
                         } else if (it.tagName == "Lens Model") {
-                            myPictureMetaData.lenseModel == it.description
+                            myPictureMetaData.lenseModel = it.description
+                        } else if (it.tagName == "Lens Specification") {
+                            myPictureMetaData.lenseDescription = it.description
                         } else if (it.tagName == "Date/Time") {
                             myPictureMetaData.dateTime = it.description
                         } else if (it.tagName == "Image Height") {
@@ -99,9 +102,10 @@ class ExtractPictureMetaData {
     }
 
 
-    internal fun readFiles(myFile2: String): Int {
+    internal fun readFiles(startWithDirectory: String): Int {
         var selectedFiles = 0
-        File(myFile2).walk().forEach {
+
+        File(startWithDirectory).walk().forEach {
             if (it.isFile) {
                 val fileName = it.absoluteFile.name
                 if ((fileName.toLowerCase().endsWith(".cr2")) || (fileName.toLowerCase().endsWith(".jpg"))) {
@@ -116,4 +120,63 @@ class ExtractPictureMetaData {
         return selectedFiles
     }
 
+    internal fun createCsVFile(startWithDirectory: String, csvFile: String): Int {
+        var selectedFiles = 0
+        var fileWriter: FileWriter? = null
+        val CSV_HEADER = "pictureName,dateTime,aperture,exposure,make,model,lenseModel,lenseDescription"
+
+        try {
+            fileWriter = FileWriter(csvFile)
+
+            fileWriter.append(CSV_HEADER)
+            fileWriter.append('\n')
+
+            File(startWithDirectory).walk().forEach {
+                if (it.isFile) {
+                    val fileName = it.absoluteFile.name
+                    if ((fileName.toLowerCase().endsWith(".cr2")) || (fileName.toLowerCase().endsWith(".jpg"))) {
+                        println(it)
+                        val myMetadata = getPictureMetaData(it)
+                        fileWriter.append(myMetadata.pictureName)
+                        fileWriter.append(',')
+                        fileWriter.append(myMetadata.dateTime)
+                        fileWriter.append(',')
+                        fileWriter.append(myMetadata.aperture)
+                        fileWriter.append(',')
+                        fileWriter.append(myMetadata.exposure)
+                        fileWriter.append(',')
+                        fileWriter.append(myMetadata.make)
+                        fileWriter.append(',')
+                        fileWriter.append(myMetadata.model)
+                        fileWriter.append(',')
+                        fileWriter.append(myMetadata.lenseModel)
+                        fileWriter.append(',')
+                        fileWriter.append(myMetadata.lenseDescription)
+                        fileWriter.append('\n')
+                        println(myMetadata)
+                        selectedFiles++
+                    }
+
+                }
+            }
+
+            println("Write CSV successfully!")
+        } catch (e: Exception) {
+            println("Writing CSV error!")
+            e.printStackTrace()
+        } finally {
+            try {
+                fileWriter!!.flush()
+                fileWriter.close()
+            } catch (e: IOException) {
+                println("Flushing/closing error!")
+                e.printStackTrace()
+            }
+        }
+
+        return selectedFiles
+    }
+
 }
+
+

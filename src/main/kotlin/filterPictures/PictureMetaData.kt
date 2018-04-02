@@ -6,6 +6,7 @@ class PictureMetaData {
     var canonicalPath : String = ""
     var make : String = ""
     var model : String = ""
+    var lenseDescription: String = ""
     var lenseModel: String = ""
     var dateTime : String = ""
     var height : Int = 0

@@ -27,6 +27,17 @@ class ExtractPictureMetaDataTest : TestCase(){
         assertEquals(36, e.readFiles(myFile7))
         System.out.println("test")
     }
+    @Test
+    fun testCreateCsvFile() {
+
+        val resourcesDirectory = File("src/main/resources")
+        val startsWithDirectory = resourcesDirectory.absolutePath + "/ExportTest"
+        val writeInCsvFile = resourcesDirectory.absolutePath + "/CsvFile"
+        System.out.println(startsWithDirectory)
+        val e = ExtractPictureMetaData()
+        assertEquals(36, e.createCsVFile(startsWithDirectory,writeInCsvFile))
+        System.out.println("test")
+    }
 
     @Test
     fun testGetMetaDataIntoString(){

@@ -176,7 +176,6 @@ class ExtractPictureMetaData {
 
         return selectedFiles
     }
-
 }
 
 

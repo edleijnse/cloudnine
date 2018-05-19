@@ -6,7 +6,7 @@
 
     <groupId>leijnse.info</groupId>
     <artifactId>cloudnine</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
 
     <!--https://howtoprogram.xyz/2016/09/09/junit-5-maven-example/-->
 

@@ -18,7 +18,7 @@ fun main(args: Array<String>) {
     val myResourcesDirectory = args[0]
     val myStartswithDirectory = args[1]
     val myCsvFile = args[2]
-    println("Hello, world, Ed!")
+    println("start!")
     // val resourcesDirectory = File("/Volumes/MyDrive01")
     val resourcesDirectory = File(myResourcesDirectory)
     // val startsWithDirectory = resourcesDirectory.absolutePath + "/Lightroom"

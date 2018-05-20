@@ -6,11 +6,11 @@
 
     <groupId>leijnse.info</groupId>
     <artifactId>cloudnine</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <packaging>jar</packaging>
 
     <name>cloudnine</name>
-    <url>https://jitpack.io/#jitpack/cloudnine/1.0.1</url>
+    <url>https://jitpack.io/#jitpack/cloudnine/1.0.2</url>
 
     <!--https://howtoprogram.xyz/2016/09/09/junit-5-maven-example/-->
 
